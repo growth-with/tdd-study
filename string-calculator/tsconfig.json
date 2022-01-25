@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noResolve": false,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "sourceMap": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "keyofStringsOnly": true,
+    "baseUrl": ".",
+  },
+  "typeRoots": ["node_modules/@types", "src/@types"],
+  "exclude": [
+    "node_modules",
+    "./node_modules/**/*"
+  ],
+  "include": ["./src/**/*", "@types", "__tests__"]
+}
