@@ -1,3 +1,10 @@
+const opFunc = {
+  '+': (a:string, b:string): number => parseFloat(a) + parseFloat(b),
+  '-': (a:string, b:string): number => parseFloat(a) - parseFloat(b),
+  '/': (a:string, b:string): number => parseFloat(a) / parseFloat(b),
+  '*': (a:string, b:string): number => parseFloat(a) * parseFloat(b),
+}
+
 export type TokenType = 'NUM' | 'OP';
 
 export interface IToken {
@@ -13,7 +20,7 @@ export const isOp = (s: string) => {
 
 export const isNum = (s: string) => {
   return s !== ' ' && s !== '' && !isNaN(Number(s));
-}
+};
 
 export const parse = (src: string) => {
   const tokens = src.split(' ');
@@ -42,6 +49,31 @@ export const parse = (src: string) => {
   });
 };
 
-export const calculate = (_src: string) => {
-  return 12;
+export const calculate = (src: string): number => {
+  const tokens = parse(src).map((e) => e.value);
+
+  let newTokens = [tokens[0]];
+
+  tokens.splice(0, 1);
+
+  while (1) {
+    if (tokens[0] === '/' || tokens[0] === '*') {
+      newTokens[newTokens.length - 1] = opFunc[tokens[0]](newTokens[newTokens.length - 1], tokens[1]).toString();
+    }
+    else {
+      newTokens = newTokens.concat(tokens.slice(0, 2));
+    }
+    tokens.splice(0, 2);
+
+    if (tokens.length < 1) {
+      break;
+    }
+  }
+  let result = parseFloat(newTokens[0]);
+
+  for (let i = 1; i < newTokens.length; i += 2) {
+    result = opFunc[newTokens[i]](result, newTokens[i + 1]);
+  }
+
+  return result;
 };

@@ -3,7 +3,7 @@ import { calculate, parse, isOp, isNum, IToken } from './index';
 describe('isOp 함수 테스트', () => {
   it('+, -, *, /에 대해서 참을 반환해야 합니다.', () => {
     const operators = ['+', '-', '*', '/'];
-    operators.forEach((op)=> {
+    operators.forEach((op) => {
       expect(isOp(op)).toBe(true);
     });
   });
@@ -56,7 +56,7 @@ describe('parse 함수 테스트', () => {
     });
   });
 
-  it("숫자, 연산자가 아닌 다른 문자가 들어왔을 때 에러를 던져야 합니다.", () => {
+  it('숫자, 연산자가 아닌 다른 문자가 들어왔을 때 에러를 던져야 합니다.', () => {
     expect(() => parse('1 + hello')).toThrow('unsupported token type');
   });
 
@@ -73,9 +73,48 @@ describe('parse 함수 테스트', () => {
   });
 });
 
-describe('calculate 함수 테스트', () => {
+describe('calculate 함수 연산자 1개 테스트', () => {
   it("'10 + 2' 계산식을 12로 계산해야 합니다.", () => {
     const result = calculate('10 + 2');
     expect(result).toBe(12);
+  });
+
+  it("'10 - 2' 계산식을 8로 계산해야 합니다.", () => {
+    const result = calculate('10 - 2');
+    expect(result).toBe(8);
+  });
+
+  it("'10 / 2' 계산식을 5로 계산해야 합니다.", () => {
+    const result = calculate('10 / 2');
+    expect(result).toBe(5);
+  });
+
+  it("'10 * 2' 계산식을 20로 계산해야 합니다.", () => {
+    const result = calculate('10 * 2');
+    expect(result).toBe(20);
+  });
+});
+
+describe('calculate 함수 우선순위가 같은 연산자 2개 테스트', () => {
+  it("'10 + 2 - 3' 계산식을 15로 계산해야 합니다.", () => {
+    const result = calculate('10 + 2 - 3');
+    expect(result).toBe(9);
+  });
+
+  it("'10 / 2 * 3' 계산식을 15로 계산해야 합니다.", () => {
+    const result = calculate('10 / 2 * 3');
+    expect(result).toBe(15);
+  });
+});
+
+describe('calculate 함수 우선순위가 다른 연산자 2개 테스트', () => {
+  it("'10 + 2 * 3' 계산식을 9로 계산해야 합니다.", () => {
+    const result = calculate('10 + 2 * 3');
+    expect(result).toBe(16);
+  });
+
+  it("'10 / 2 + 3' 계산식을 8로 계산해야 합니다.", () => {
+    const result = calculate('10 / 2 + 3');
+    expect(result).toBe(8);
   });
 });
