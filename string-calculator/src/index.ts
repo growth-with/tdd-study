@@ -1,13 +1,6 @@
-import { isNum, isOp, opFunc, OpType, isOpType } from "./util";
+import { isNum, isOp, opFunc, isOpType } from "./util";
 
-export type TokenType = "NUM" | "OP";
-
-export interface IToken {
-  type: TokenType;
-  value: string;
-}
-
-export const parse = (src: string) => {
+export const parse = (src: string): string[] => {
   const tokens = src.split(" ");
   return tokens.map((token, index) => {
     if (token === "") {
@@ -26,16 +19,12 @@ export const parse = (src: string) => {
       throw new Error("A operator cannot be followed by a operator");
     }
 
-    if (isOp(token)) {
-      return { type: "OP", value: token };
-    }
-
-    return { type: "NUM", value: token };
+    return token;
   });
 };
 
 export const calculate = (src: string): number => {
-  const tokens = parse(src).map((e) => e.value);
+  const tokens = parse(src);
 
   let newTokens: string[] = [tokens[0]];
 

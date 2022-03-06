@@ -1,17 +1,9 @@
-import { calculate, parse, IToken } from "./index";
+import { calculate, parse } from "./index";
 
 describe("parse 함수 테스트", () => {
   it("'10 + 2 * 123.456 - 3.24' 계산식을 숫자와 연산자로 분리해야 합니다.", () => {
     const tokens = parse("10 + 2 * 123.456 - 3.24");
-    const result: IToken[] = [
-      { type: "NUM", value: "10" },
-      { type: "OP", value: "+" },
-      { type: "NUM", value: "2" },
-      { type: "OP", value: "*" },
-      { type: "NUM", value: "123.456" },
-      { type: "OP", value: "-" },
-      { type: "NUM", value: "3.24" },
-    ];
+    const result: string[] = ["10", "+", "2", "*", "123.456", "-", "3.24"];
     tokens.forEach((token, index) => {
       expect(token).toEqual(result[index]);
     });
