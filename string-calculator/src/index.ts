@@ -1,38 +1,26 @@
-import { opFunc, isOpType } from "./util";
+import { opFunc, isOpType, convertInfixToPostfix, isNum } from "./util";
 import parse from "./parse";
 
 const calculate = (src: string): number => {
-  const tokens = parse(src);
+  const tokens = convertInfixToPostfix(parse(src));
 
-  let newTokens: string[] = [tokens[0]];
+  const tempTokens: string[] = [];
 
-  tokens.splice(0, 1);
-
-  while (1) {
-    if (tokens[0] === "/" || tokens[0] === "*") {
-      newTokens[newTokens.length - 1] = opFunc[tokens[0]](
-        parseFloat(newTokens[newTokens.length - 1]),
-        parseFloat(tokens[1])
-      ).toString();
-    } else {
-      newTokens = newTokens.concat(tokens.slice(0, 2));
+  tokens.forEach((element) => {
+    if (isNum(element)) {
+      return tempTokens.push(element);
     }
-    tokens.splice(0, 2);
 
-    if (tokens.length < 1) {
-      break;
+    const a = tempTokens.pop();
+    const b = tempTokens.pop();
+    if (!a || !b || !isOpType(element)) {
+      return;
     }
-  }
-  let result = parseFloat(newTokens[0]);
 
-  for (let i = 1; i < newTokens.length; i += 2) {
-    const opType = newTokens[i];
-    if (isOpType(opType)) {
-      result = opFunc[opType](result, parseFloat(newTokens[i + 1]));
-    }
-  }
+    tempTokens.push(opFunc[element](parseFloat(b), parseFloat(a)).toString());
+  });
 
-  return result;
+  return parseFloat(tempTokens[0]);
 };
 
 export default calculate;
