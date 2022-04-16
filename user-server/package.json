@@ -14,10 +14,12 @@
     "lint:fix": "eslint src --ext .ts --fix"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jest": "^27.5.1",
     "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.3",

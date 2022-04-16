@@ -16,8 +16,17 @@ class UserService {
       const res = await this.userRepository.insert(param);
 
       return !!res;
+    } catch (e) {
+      return false;
     }
-    catch (e) {
+  }
+
+  async login(param: { password: string; userId: string }) {
+    try {
+      const res = await this.userRepository.insert(param);
+
+      return !!res;
+    } catch (e) {
       return false;
     }
   }
