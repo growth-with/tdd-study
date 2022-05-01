@@ -8,6 +8,6 @@ const application = async () => {
   await loadApp(app);
 
   return app;
-}
+};
 
 export default application;

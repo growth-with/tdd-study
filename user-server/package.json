@@ -2,13 +2,13 @@
   "name": "user-server",
   "version": "1.0.0",
   "description": "user server",
-  "main": "src/application.ts",
+  "main": "src/index.ts",
   "repository": "https://github.com/growth-with/tdd-study",
   "author": "growth-with",
   "license": "MIT",
   "scripts": {
-    "dev": "env-cmd -f .env.dev nodemon --exec ts-node src/application.ts",
-    "start": "NODE_ENV=production env-cmd ts-node src/application.ts",
+    "dev": "env-cmd -f .env.dev nodemon --exec ts-node src/index.ts",
+    "start": "NODE_ENV=production env-cmd ts-node src/index.ts",
     "test": "jest",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix"

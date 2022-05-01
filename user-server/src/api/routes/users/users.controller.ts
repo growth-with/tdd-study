@@ -3,7 +3,18 @@ import { Container } from 'typedi';
 
 import UserService from '../../../services/user';
 
-export const handleSignUp = async (req: Request, res: Response, next: NextFunction) => {
+export const handleSignUp = async (
+  req: Request<
+    Record<string, string>,
+    void,
+    {
+      password: string;
+      userId: string;
+    }
+  >,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const userServiceInstance = Container.get(UserService);
     await userServiceInstance.signup(req.body);
