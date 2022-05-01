@@ -21,15 +21,7 @@ class UserService {
     }
   }
 
-  async login(param: { password: string; userId: string }) {
-    try {
-      const res = await this.userRepository.insert(param);
-
-      return !!res;
-    } catch (e) {
-      return false;
-    }
-  }
+  // @TODO 회원탈퇴/사용자 정보 조회 메서드 추가
 }
 
 export default UserService;
